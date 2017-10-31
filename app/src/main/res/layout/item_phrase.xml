@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_item_phrase"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="2dp"
+              android:background="@color/background"
+              android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_item_phrase_serial_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="1"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_item_phrase_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="马到成功"
+        android:textSize="18sp"
+        />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="-----"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_item_phrase_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="中华人民共和国万岁，左辅右弼，有没有"
+        android:textSize="18sp"/>
+
+</LinearLayout>

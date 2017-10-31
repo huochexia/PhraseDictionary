@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">成语学习</string>
+    <string name="title_home">首页</string>
+    <string name="title_dictionary">词库</string>
+    <string name="title_browse">浏览</string>
+    <string name="title_my">我的</string>
+    <string name="search_hint">请输入查询成语拼单的首字母</string>
+
+</resources>
