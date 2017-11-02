@@ -146,7 +146,7 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
             mTvNewPhrasePy.setText(((CustomPhrase) mLists.get(currentIndex)).getMHypy());
             mAddPhraseComment.setText(((CustomPhrase) mLists.get(currentIndex)).getMComment());
             mAddPhraseExplain.setText(((CustomPhrase) mLists.get(currentIndex)).getMExplain());
-            if (((Phrase) mLists.get(currentIndex)).getMLabel() == 1) {
+            if (((CustomPhrase) mLists.get(currentIndex)).getMLabel() == 1) {
                 mIvAddphraseLabel.setVisibility(View.VISIBLE);
                 mBtnAddPhraseCancelFlag.setVisibility(View.VISIBLE);
                 mBtnAddPhraseFlag.setVisibility(View.INVISIBLE);

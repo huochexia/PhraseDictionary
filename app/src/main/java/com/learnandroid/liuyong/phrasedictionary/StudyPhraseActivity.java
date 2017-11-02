@@ -130,6 +130,8 @@ public class StudyPhraseActivity extends ParentWithNavigationActivity {
                 break;
             case R.id.btn_study_next:
                 currentIndex++;
+                setPhraseList(mList.get(currentIndex));
+                setFirstStudyDate(mList.get(currentIndex));
                 if (currentIndex == mList.size() - 1) {
                     mBtnStudyNext.setEnabled(false);
 
@@ -137,8 +139,7 @@ public class StudyPhraseActivity extends ParentWithNavigationActivity {
 
                     mBtnStudyPrev.setEnabled(true);
                 }
-                setPhraseList(mList.get(currentIndex));
-                setFirstStudyDate(mList.get(currentIndex));
+
                 break;
             case R.id.btn_study_flag:
                 mBtnStudyCancelFlag.setVisibility(View.VISIBLE);

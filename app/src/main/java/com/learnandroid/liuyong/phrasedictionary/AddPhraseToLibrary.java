@@ -3,6 +3,7 @@ package com.learnandroid.liuyong.phrasedictionary;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -112,14 +113,24 @@ public class AddPhraseToLibrary extends ParentWithNavigationActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_phrase_ok:
-                CustomPhrase one = new CustomPhrase();
-                one.setMPhrase(mTvNewPhrase.getText().toString().trim());
-                one.setMHypy(mTvNewPhrasePy.getText().toString().trim());
-                one.setMExplain(mAddPhraseExplain.getText().toString().trim());
-                one.setMComment(mAddPhraseComment.getText().toString().trim());
-                one.setMLabel(0);
-                mPhraseDbManager.insert(one);
-                clear();
+                if (!TextUtils.isEmpty(mTvNewPhrase.getText()) && !TextUtils.isEmpty(mAddPhraseExplain.getText())) {
+                    CustomPhrase one = new CustomPhrase();
+                    one.setMPhrase(mTvNewPhrase.getText().toString().trim());
+                    one.setMHypy(mTvNewPhrasePy.getText().toString().trim());
+                    one.setMExplain(mAddPhraseExplain.getText().toString().trim());
+                    one.setMComment(mAddPhraseComment.getText().toString().trim());
+                    one.setMLabel(0);
+                    mPhraseDbManager.insert(one);
+                    clear();
+                } else {
+                    if (TextUtils.isEmpty(mTvNewPhrase.getText())) {
+                        toast("成语不能为空！！！");
+                    }
+                    if (TextUtils.isEmpty(mAddPhraseExplain.getText())) {
+                        toast("成语详解不能为空！！！");
+                    }
+                }
+
                 break;
             case R.id.add_phrase_cancel:
                 finish();

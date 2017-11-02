@@ -217,7 +217,7 @@ public class BrowseFragment extends BaseFragment {
                 qb.where(PhraseDao.Properties.MLabel.notEq(1), PhraseDao.Properties.MHypy.like(first+"%"));
         } else if (manager instanceof CustomPhraseDbManager) {
             if (label == 0)
-                qb.where(CustomPhraseDao.Properties.MHypy.eq(first+"%"));
+                qb.where(CustomPhraseDao.Properties.MHypy.like(first+"%"));
             if (label == 1)
                 qb.where(CustomPhraseDao.Properties.MLabel.eq(1),CustomPhraseDao.Properties.MHypy.like(first+"%"));
             if(label ==2)

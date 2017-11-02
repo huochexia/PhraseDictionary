@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:text="成语："
             android:textColor="#000000"
-            android:textSize="23sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tv_study_phrase"
@@ -46,7 +46,7 @@
             android:layout_toLeftOf="@+id/tv_study_py"
             android:text="简拼："
             android:textColor="#000000"
-            android:textSize="23sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tv_study_py"
@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin_5"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:orientation="vertical">
 
         <TextView
@@ -83,8 +83,11 @@
             android:layout_height="wrap_content"
             android:text="详解："
             android:textColor="#000000"
-            android:textSize="23sp"/>
-
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -93,7 +96,7 @@
                 android:id="@+id/tv_study_explain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </ScrollView>
 
     </LinearLayout>
@@ -107,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin_5"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:orientation="vertical">
 
         <TextView
@@ -115,8 +118,11 @@
             android:layout_height="wrap_content"
             android:text="备注："
             android:textColor="#000000"
-            android:textSize="23sp"/>
-
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -125,7 +131,7 @@
                 android:id="@+id/tv_study_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </ScrollView>
 
 
