@@ -412,6 +412,7 @@
                 android:textColor="#000FFF"
                 android:textSize="20sp"/>
 
+
             <Button
                 android:id="@+id/pinyin_Z"
                 android:layout_height="fill_parent"

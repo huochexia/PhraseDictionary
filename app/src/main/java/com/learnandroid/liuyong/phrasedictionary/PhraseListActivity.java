@@ -79,5 +79,9 @@ public class PhraseListActivity extends ParentWithNavigationActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+    }
 }

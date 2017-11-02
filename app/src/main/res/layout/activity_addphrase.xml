@@ -176,11 +176,18 @@
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/add_phrase_modi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                android:visibility="gone"
+                android:text="修  改"
+
+                /><Button
                 android:id="@+id/add_phrase_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/margin_10"
                 android:background="@drawable/round_button"
                 android:text="确  认"
 
@@ -191,7 +198,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/margin_10"
                 android:background="@drawable/round_button"
                 android:text="上一个"
                 android:visibility="gone"
@@ -244,6 +250,7 @@
                 android:background="@drawable/round_button"
                 android:text="取消标记"
                 android:visibility="gone"/>
+
 
         </RelativeLayout>
 

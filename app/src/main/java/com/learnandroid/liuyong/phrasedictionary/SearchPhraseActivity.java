@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.learnandroid.liuyong.phrasedictionary.Adapter.PhraseListAdapter;
@@ -47,7 +48,9 @@ public class SearchPhraseActivity extends ParentWithNavigationActivity {
             @Override
             public void changedText() {
                 mList.clear();
-                mList.addAll(getSearchResult(mEtNaviSearch.getText().toString()));
+                if (!TextUtils.isEmpty(mEtNaviSearch.getText())) {
+                    mList.addAll(getSearchResult(mEtNaviSearch.getText().toString()));
+                }
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -88,15 +91,17 @@ public class SearchPhraseActivity extends ParentWithNavigationActivity {
     }
 
     public List<Object> getSearchResult(String hypy) {
-        List<Object> mlists = new ArrayList<>();
-        PhraseDbManager db = new PhraseDbManager();
-        QueryBuilder qb = db.getQueryBuilder();
-        qb.where(PhraseDao.Properties.MHypy.like(hypy + "%"));
-        mlists.addAll(qb.list());
-        CustomPhraseDbManager cpd = new CustomPhraseDbManager();
-        qb = cpd.getQueryBuilder();
-        qb.where(CustomPhraseDao.Properties.MHypy.like(hypy + "%"));
-        mlists.addAll(qb.list());
-        return mlists;
+
+            List<Object> mlists = new ArrayList<>();
+            PhraseDbManager db = new PhraseDbManager();
+            QueryBuilder qb = db.getQueryBuilder();
+            qb.where(PhraseDao.Properties.MHypy.like(hypy + "%"));
+            mlists.addAll(qb.list());
+            CustomPhraseDbManager cpd = new CustomPhraseDbManager();
+            qb = cpd.getQueryBuilder();
+            qb.where(CustomPhraseDao.Properties.MHypy.like(hypy + "%"));
+            mlists.addAll(qb.list());
+            return mlists;
+
     }
 }

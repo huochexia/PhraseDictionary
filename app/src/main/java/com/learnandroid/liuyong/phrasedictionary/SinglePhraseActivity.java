@@ -2,17 +2,19 @@ package com.learnandroid.liuyong.phrasedictionary;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.promeg.pinyinhelper.Pinyin;
 import com.learnandroid.liuyong.phrasedictionary.Interface.ToolbarListener;
 import com.learnandroid.liuyong.phrasedictionary.base.ParentWithNavigationActivity;
 import com.learnandroid.liuyong.phrasedictionary.db.bean.CustomPhrase;
 import com.learnandroid.liuyong.phrasedictionary.db.bean.Phrase;
-import com.learnandroid.liuyong.phrasedictionary.db.dao.CustomPhraseDao;
 import com.learnandroid.liuyong.phrasedictionary.db.manager.CustomPhraseDbManager;
 import com.learnandroid.liuyong.phrasedictionary.db.manager.PhraseDbManager;
 
@@ -65,6 +67,8 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
     Button mBtnAddPhraseFlag;
     @Bind(R.id.btn_add_phrase_cancel_flag)
     Button mBtnAddPhraseCancelFlag;
+    @Bind(R.id.add_phrase_modi)
+    Button mAddPhraseModi;
 
     @Override
     public Object left() {
@@ -113,6 +117,29 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
         initToolbarView();
         ButterKnife.bind(this);
         initView();
+        mTvNewPhrase.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String pinYin = "";
+                for(int i= 0 ;i<s.length();i++) {
+                    String c= Pinyin.toPinyin(s.charAt(i));//获得第i个字的拼音
+                    pinYin = pinYin + c.charAt(0);
+                }
+
+                mTvNewPhrasePy.setText(pinYin);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         Bundle bundle = getBundle();
         mLists = (List<Object>) bundle.getSerializable("phrase");
         currentIndex = bundle.getInt("currentIndex");
@@ -142,6 +169,8 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
                 mBtnAddPhraseFlag.setVisibility(View.VISIBLE);
             }
         } else if (mLists.get(currentIndex) instanceof CustomPhrase) {
+            mAddPhraseModi.setVisibility(View.VISIBLE);
+            mAddPhraseModi.setOnClickListener(modi);
             mTvNewPhrase.setText(((CustomPhrase) mLists.get(currentIndex)).getMPhrase());
             mTvNewPhrasePy.setText(((CustomPhrase) mLists.get(currentIndex)).getMHypy());
             mAddPhraseComment.setText(((CustomPhrase) mLists.get(currentIndex)).getMComment());
@@ -158,6 +187,7 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
         }
     }
 
+
     /**
      * 初始化视图
      */
@@ -172,7 +202,27 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
         mPrevPhrase.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.add_phrase_prev, R.id.add_phrase_next,R.id.btn_add_phrase_flag, R.id.btn_add_phrase_cancel_flag})
+    /**
+     * 点击修改按钮事件
+     * @param view
+     */
+    View.OnClickListener   modi = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mTvNewPhrase.setEnabled(true);
+            mTvNewPhrasePy.setEnabled(true);
+            mAddPhraseExplain.setEnabled(true);
+            mAddPhraseComment.setEnabled(true);
+            mAddPhraseCancel.setVisibility(View.VISIBLE);
+            mAddPhraseOk.setVisibility(View.VISIBLE);
+            mNextPhrase.setVisibility(View.INVISIBLE);
+            mPrevPhrase.setVisibility(View.INVISIBLE);
+
+        }
+
+    };
+    @OnClick({R.id.add_phrase_prev, R.id.add_phrase_next, R.id.btn_add_phrase_flag, R.id.btn_add_phrase_cancel_flag,
+            R.id.add_phrase_ok, R.id.add_phrase_cancel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_phrase_prev:
@@ -180,7 +230,7 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
                 getPhraseContent();
                 if (currentIndex == 0) {
                     mPrevPhrase.setEnabled(false);
-
+                    mNextPhrase.setEnabled(true);
                 } else {
                     mNextPhrase.setEnabled(true);
                 }
@@ -190,8 +240,10 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
                 getPhraseContent();
                 if (currentIndex == mLists.size() - 1) {
                     mNextPhrase.setEnabled(false);
+                    mPrevPhrase.setEnabled(true);
                 } else {
                     mPrevPhrase.setEnabled(true);
+
                 }
                 break;
             case R.id.btn_add_phrase_flag:
@@ -206,6 +258,25 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
                 mIvAddphraseLabel.setVisibility(View.INVISIBLE);
                 setLabel(0);
                 break;
+            case R.id.add_phrase_ok:
+                CustomPhraseDbManager manager = new CustomPhraseDbManager();
+                CustomPhrase modified = (CustomPhrase) mLists.get(currentIndex);
+                modified.setMComment(mAddPhraseComment.getText().toString());
+
+                modified.setMExplain(mAddPhraseExplain.getText().toString());
+
+                modified.setMHypy(mTvNewPhrasePy.getText().toString());
+
+                modified.setMPhrase(mTvNewPhrase.getText().toString());
+
+                manager.update(modified);
+                initView();
+                break;
+            case R.id.add_phrase_cancel:
+                initView();
+                getPhraseContent();
+                break;
+
         }
     }
 
@@ -214,7 +285,7 @@ public class SinglePhraseActivity extends ParentWithNavigationActivity {
             PhraseDbManager manager = new PhraseDbManager();
             ((Phrase) mLists.get(currentIndex)).setMLabel(label);
             manager.update((Phrase) mLists.get(currentIndex));
-        } else if(mLists.get(currentIndex) instanceof CustomPhrase) {
+        } else if (mLists.get(currentIndex) instanceof CustomPhrase) {
             CustomPhraseDbManager manager = new CustomPhraseDbManager();
             ((CustomPhrase) mLists.get(currentIndex)).setMLabel(label);
             manager.update((CustomPhrase) mLists.get(currentIndex));

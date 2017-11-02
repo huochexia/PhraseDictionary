@@ -198,6 +198,7 @@ public class BrowseFragment extends BaseFragment {
             case R.id.pinyin_Z:
                 queryList("Z",label);
                 break;
+
         }
         sendList();
     }
@@ -223,7 +224,9 @@ public class BrowseFragment extends BaseFragment {
             if(label ==2)
                 qb.where(CustomPhraseDao.Properties.MLabel.notEq(1), CustomPhraseDao.Properties.MHypy.like(first+"%"));
         }
+
         mObjectList.addAll(qb.list());
+
     }
 
 

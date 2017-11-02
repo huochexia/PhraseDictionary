@@ -124,6 +124,7 @@ public class StudyPhraseActivity extends ParentWithNavigationActivity {
                 setPhraseList(mList.get(currentIndex));
                 if (currentIndex == 0) {
                     mBtnStudyPrev.setEnabled(false);
+                    mBtnStudyNext.setEnabled(true);
                 } else {
                     mBtnStudyNext.setEnabled(true);
                 }
@@ -134,7 +135,7 @@ public class StudyPhraseActivity extends ParentWithNavigationActivity {
                 setFirstStudyDate(mList.get(currentIndex));
                 if (currentIndex == mList.size() - 1) {
                     mBtnStudyNext.setEnabled(false);
-
+                    mBtnStudyPrev.setEnabled(true);
                 } else {
 
                     mBtnStudyPrev.setEnabled(true);
